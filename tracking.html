@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tracking Pengiriman | SITTA</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+  <header class="site-header"><div class="header-inner"><a class="site-brand" href="dashboard.html"><strong>SITTA</strong><span>Universitas Terbuka</span></a><div class="user-menu"><span id="userGreeting">Halo, Pengguna</span><a href="index.html">Keluar</a></div></div></header>
+  <nav class="nav"><div class="nav-inner"><a href="dashboard.html">Dashboard</a><a class="active" href="tracking.html">Tracking Pengiriman</a><a href="stok.html">Stok Bahan Ajar</a></div></nav>
+  <main class="main"><div class="page-heading"><h1>Tracking Pengiriman</h1><p>Masukkan nomor delivery order untuk melihat posisi paket.</p></div>
+    <section class="panel"><form class="search-form" id="trackingForm"><input id="orderNumber" inputmode="numeric" placeholder="Contoh: 2023001234" required><button class="button" type="submit">Cari Pengiriman</button></form><p class="message" id="trackingMessage" role="alert"></p></section>
+    <section class="panel tracking-result" id="trackingResult"></section>
+  </main>
+  <script src="js/data.js"></script><script src="js/script.js"></script>
+</body>
+</html>
