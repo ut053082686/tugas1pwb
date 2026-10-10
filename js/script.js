@@ -24,7 +24,11 @@
 
   function setupUser() {
     var greeting = document.getElementById("userGreeting");
-    if (greeting && getUser()) greeting.textContent = "Halo, " + getUser().nama;
+    var user = getUser();
+    if (!greeting || !user) return;
+    var hour = new Date().getHours();
+    var timeGreeting = hour < 11 ? "Selamat pagi" : hour < 15 ? "Selamat siang" : hour < 18 ? "Selamat sore" : "Selamat malam";
+    greeting.textContent = timeGreeting + ", " + user.nama;
   }
 
   function setupDashboard() {
@@ -63,6 +67,22 @@
     if (!form) return;
     renderStock("", "all");
     form.addEventListener("submit", function (event) { event.preventDefault(); renderStock(document.getElementById("stockQuery").value.trim(), document.getElementById("stockType").value); });
+    var addForm = document.getElementById("addStockForm");
+    addForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      dataBahanAjar.push({
+        kodeLokasi: document.getElementById("newBookLocation").value.trim(),
+        kodeBarang: document.getElementById("newBookCode").value.trim().toUpperCase(),
+        namaBarang: document.getElementById("newBookName").value.trim(),
+        jenisBarang: "BMP",
+        edisi: "1",
+        stok: Number(document.getElementById("newBookStock").value),
+        cover: "img/pengantar_komunikasi.jpg"
+      });
+      renderStock(document.getElementById("stockQuery").value.trim(), document.getElementById("stockType").value);
+      document.getElementById("stockMessage").textContent = "Data stok berhasil ditambahkan.";
+      addForm.reset();
+    });
   }
 
   setupLogin(); setupUser(); setupDashboard(); setupTracking(); setupStock();

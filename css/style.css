@@ -64,6 +64,9 @@ button, input, select { font: inherit; }
 .quick-link span { color: var(--muted); font-size: 13px; }
 
 .search-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 18px; }
+.add-stock-panel { margin-top: 18px; }
+.add-stock-form { display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr auto; gap: 10px; }
+.add-stock-form input { width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 2px; }
 .result-card { display: grid; grid-template-columns: 100px 1fr; gap: 18px; margin-bottom: 12px; }
 .book-cover { width: 100px; height: 135px; object-fit: cover; border: 1px solid var(--line); }
 .book-info h2 { margin: 0 0 10px; color: var(--navy); font-size: 20px; }
@@ -90,7 +93,7 @@ button, input, select { font: inherit; }
 @media (max-width: 700px) {
   .header-inner { align-items: flex-start; flex-direction: column; gap: 10px; }
   .user-menu { width: 100%; justify-content: space-between; }
-  .stats, .quick-links, .tracking-details, .search-form { grid-template-columns: 1fr; }
+  .stats, .quick-links, .tracking-details, .search-form, .add-stock-form { grid-template-columns: 1fr; }
   .result-card { grid-template-columns: 1fr; }
   .book-cover { width: 100%; height: 190px; }
   .tracking-header { flex-direction: column; gap: 10px; }

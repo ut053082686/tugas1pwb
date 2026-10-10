@@ -2,10 +2,11 @@
 <html lang="id">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Stok Bahan Ajar | SITTA</title><link rel="stylesheet" href="css/style.css"></head>
 <body>
-  <header class="site-header"><div class="header-inner"><a class="site-brand" href="dashboard.html"><strong>SITTA</strong><span>Universitas Terbuka</span></a><div class="user-menu"><span id="userGreeting">Halo, Pengguna</span><a href="index.html">Keluar</a></div></div></header>
+  <header class="site-header"><div class="header-inner"><a class="site-brand" href="dashboard.html"><strong>SITTA</strong><span>Universitas Terbuka</span></a><div class="user-menu"><span id="userGreeting">Selamat datang</span><a href="index.html">Keluar</a></div></div></header>
   <nav class="nav"><div class="nav-inner"><a href="dashboard.html">Dashboard</a><a href="tracking.html">Tracking Pengiriman</a><a class="active" href="stok.html">Stok Bahan Ajar</a></div></nav>
   <main class="main"><div class="page-heading"><h1>Informasi Stok Bahan Ajar</h1><p>Cari bahan ajar berdasarkan nama atau kode barang.</p></div>
     <section class="panel"><form class="search-form" id="stockForm"><input id="stockQuery" placeholder="Nama atau kode bahan ajar"><select id="stockType"><option value="all">Semua jenis</option><option value="BMP">BMP</option></select><button class="button" type="submit">Cari Stok</button></form></section>
+    <section class="panel add-stock-panel"><h2>Tambah Stok Bahan Ajar</h2><form class="add-stock-form" id="addStockForm"><input id="newBookCode" placeholder="Kode barang" required><input id="newBookName" placeholder="Nama bahan ajar" required><input id="newBookLocation" placeholder="Kode lokasi" required><input id="newBookStock" type="number" min="0" placeholder="Jumlah stok" required><button class="button gold" type="submit">Tambah Data</button></form><p class="message" id="stockMessage" role="alert"></p></section>
     <section id="stockResults"></section>
   </main>
   <script src="js/data.js"></script><script src="js/script.js"></script>
