@@ -59,7 +59,7 @@
   function renderStock(query, type) {
     var results = dataBahanAjar.filter(function (item) { return (type === "all" || item.jenisBarang === type) && (!query || (item.namaBarang + " " + item.kodeBarang).toLowerCase().indexOf(query.toLowerCase()) !== -1); });
     var container = document.getElementById("stockResults");
-    container.innerHTML = results.length ? results.map(function (item) { return "<article class=\"panel result-card\"><img class=\"book-cover\" src=\"assets/" + item.cover + "\" alt=\"Sampul " + item.namaBarang + "\"><div class=\"book-info\"><h2>" + item.namaBarang + "</h2><dl class=\"book-meta\"><div><dt>Kode Barang</dt><dd>" + item.kodeBarang + "</dd></div><div><dt>Kode Lokasi</dt><dd>" + item.kodeLokasi + "</dd></div><div><dt>Jenis Barang</dt><dd>" + item.jenisBarang + "</dd></div><div><dt>Edisi</dt><dd>" + item.edisi + "</dd></div><div><dt>Stok Tersedia</dt><dd>" + item.stok + " eksemplar</dd></div></dl></div></article>"; }).join("") : "<div class=\"panel empty-state\">Data bahan ajar tidak ditemukan.</div>";
+    container.innerHTML = results.length ? results.map(function (item) { var imageSource = item.cover.indexOf("data:") === 0 ? item.cover : "assets/" + item.cover; return "<article class=\"panel result-card\"><img class=\"book-cover\" src=\"" + imageSource + "\" alt=\"Sampul " + item.namaBarang + "\"><div class=\"book-info\"><h2>" + item.namaBarang + "</h2><dl class=\"book-meta\"><div><dt>Kode Barang</dt><dd>" + item.kodeBarang + "</dd></div><div><dt>Kode Lokasi</dt><dd>" + item.kodeLokasi + "</dd></div><div><dt>Jenis Barang</dt><dd>" + item.jenisBarang + "</dd></div><div><dt>Edisi</dt><dd>" + item.edisi + "</dd></div><div><dt>Stok Tersedia</dt><dd>" + item.stok + " eksemplar</dd></div></dl></div></article>"; }).join("") : "<div class=\"panel empty-state\">Data bahan ajar tidak ditemukan.</div>";
   }
 
   function setupStock() {
@@ -68,20 +68,39 @@
     renderStock("", "all");
     form.addEventListener("submit", function (event) { event.preventDefault(); renderStock(document.getElementById("stockQuery").value.trim(), document.getElementById("stockType").value); });
     var addForm = document.getElementById("addStockForm");
+    var imageInput = document.getElementById("newBookImage");
+    var imagePreview = document.getElementById("imagePreview");
+    imageInput.addEventListener("change", function () {
+      var selectedImage = imageInput.files[0];
+      if (!selectedImage) return;
+      imagePreview.src = URL.createObjectURL(selectedImage);
+      imagePreview.classList.add("visible");
+    });
     addForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      dataBahanAjar.push({
-        kodeLokasi: document.getElementById("newBookLocation").value.trim(),
-        kodeBarang: document.getElementById("newBookCode").value.trim().toUpperCase(),
-        namaBarang: document.getElementById("newBookName").value.trim(),
-        jenisBarang: "BMP",
-        edisi: "1",
-        stok: Number(document.getElementById("newBookStock").value),
-        cover: "img/pengantar_komunikasi.jpg"
+      var selectedImage = imageInput.files[0];
+      if (!selectedImage || !selectedImage.type.startsWith("image/")) {
+        document.getElementById("stockMessage").textContent = "Silakan pilih file gambar yang valid.";
+        return;
+      }
+      var reader = new FileReader();
+      reader.addEventListener("load", function () {
+        dataBahanAjar.push({
+          kodeLokasi: document.getElementById("newBookLocation").value.trim(),
+          kodeBarang: document.getElementById("newBookCode").value.trim().toUpperCase(),
+          namaBarang: document.getElementById("newBookName").value.trim(),
+          jenisBarang: "BMP",
+          edisi: "1",
+          stok: Number(document.getElementById("newBookStock").value),
+          cover: reader.result
+        });
+        renderStock(document.getElementById("stockQuery").value.trim(), document.getElementById("stockType").value);
+        document.getElementById("stockMessage").textContent = "Data stok dan gambar berhasil ditambahkan.";
+        addForm.reset();
+        imagePreview.removeAttribute("src");
+        imagePreview.classList.remove("visible");
       });
-      renderStock(document.getElementById("stockQuery").value.trim(), document.getElementById("stockType").value);
-      document.getElementById("stockMessage").textContent = "Data stok berhasil ditambahkan.";
-      addForm.reset();
+      reader.readAsDataURL(selectedImage);
     });
   }
 

@@ -67,6 +67,8 @@ button, input, select { font: inherit; }
 .add-stock-panel { margin-top: 18px; }
 .add-stock-form { display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr auto; gap: 10px; }
 .add-stock-form input { width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 2px; }
+.image-preview { display: none; width: 100px; height: 100px; margin-top: 12px; object-fit: cover; border: 1px solid var(--line); }
+.image-preview.visible { display: block; }
 .result-card { display: grid; grid-template-columns: 100px 1fr; gap: 18px; margin-bottom: 12px; }
 .book-cover { width: 100px; height: 135px; object-fit: cover; border: 1px solid var(--line); }
 .book-info h2 { margin: 0 0 10px; color: var(--navy); font-size: 20px; }
